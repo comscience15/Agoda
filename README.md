@@ -12,3 +12,12 @@
     - password is not similar to old password < 80% match.
 
 ## Test Cases
+  - TC1: match password requirement
+  - TC2: over 18 alphanumeric characters and list of special characters
+  - TC3: no uppercase
+  - TC4: no lowercase
+  - TC5: no numeric
+  - TC6: no special character
+  - TC7: duplicate more than 4 characters
+  - TC8: more than 4 special characters
+  - TC9: more than 50% is number
