@@ -1,6 +1,8 @@
 package changePassword;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -10,23 +12,47 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.regex.Pattern;
 import org.json.JSONObject;
 
 public class ChangePassword {
-
+	private String oldPassword, newPassword;
+	
+	public ChangePassword() {}
 	public ChangePassword(String oldPassword, String newPassword) {
-		String currentUser = System.getProperty("Username");
+		this.oldPassword = oldPassword;
+		this.newPassword = newPassword;
+	}
+	
+	public boolean ChangePassword(String oldPassword, String newPassword) {
+		String currentUser = System.getProperty("username");
 		String existingPassword = "";
 		try {
 			existingPassword = getExistingPW(currentUser);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		if(oldPassword.equals(existingPassword)) return;
-		if(isTooSimilarOldPassword(newPassword, existingPassword)) return;
+		
+		if(oldPassword.equals(existingPassword)) return false;
+		if(isTooSimilarOldPassword(newPassword, existingPassword)) return false;
 		List<String> errorList = new ArrayList<String>();
-		verifyPassword(newPassword, errorList); 
+		return verifyPassword(newPassword, errorList); 
+	}
+	
+	public Properties readPropertiesFile(String filename){
+		FileInputStream fis;
+		Properties prop = null;
+		try {
+			fis = new FileInputStream(filename);
+			prop = new Properties();
+			prop.load(fis);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return prop;
 	}
 	
 	private boolean isTooSimilarOldPassword(String newPassword, String existingPassword) {
