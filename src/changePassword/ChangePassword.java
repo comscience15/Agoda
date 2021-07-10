@@ -143,11 +143,11 @@ public class ChangePassword {
 	
 	private boolean isMoreThanFourRepeatedChars(String passwordInput, Pattern pattern) {
 		int countChar = 0;
-    	for(char ch : passwordInput.toCharArray()) {
-    		if(countChar > 4)  return true; 
-    		if(pattern.matcher(ch + "").find())
-    			countChar++;
-    	}
+		for(char ch : passwordInput.toCharArray()) {
+			if(countChar > 4)  return true; 
+			if(pattern.matcher(ch + "").find())
+				countChar++;
+		}
     	return false;
 	}
 	
@@ -157,10 +157,10 @@ public class ChangePassword {
 		
 		int countNum = 0;
 		for(char ch : passwordInput.toCharArray()) {
-    		if(countNum > countNumOfPWInput)  return true; 
-    		if(digitCasePattern.matcher(ch + "").find())
-    			countNum++;
-    	}
+			if(countNum > countNumOfPWInput)  return true; 
+			if(digitCasePattern.matcher(ch + "").find())
+				countNum++;
+		}
     	return false;
 	}
 }
